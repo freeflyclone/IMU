@@ -88,7 +88,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  MyI2CWrite();
+	  GyroInit();
   }
   /* USER CODE END 3 */
 
