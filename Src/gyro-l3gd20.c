@@ -1,38 +1,37 @@
 #include <gyro-l3gd20.h>
 
-extern I2C_HandleTypeDef hi2c1;
+Gyro_t gyro;
 
-static uint16_t gyroWrite = 0xD6;
-static uint16_t gyroRead = 0xD7;
-static uint8_t gyroData[16];
-static HAL_StatusTypeDef status;
+uint8_t GyroInit(I2C_HandleTypeDef *hi2c) {
+	HAL_StatusTypeDef status = HAL_OK;
 
+	gyro.write = WRITE_ADDR;
+	gyro.read = READ_ADDR;
+	gyro.hi2c = hi2c;
+	gyro.data[0] = CTRL_REG1;
+	gyro.data[1] = 0xF;
 
-uint8_t GyroInit() {
-	gyroData[0] = CTRL_REG1;
-	gyroData[1] = 0xF;
-
-	while ( (status = HAL_I2C_Master_Transmit(&hi2c1, gyroWrite, gyroData, 2, 20)) != HAL_OK)
+	while ( (status = HAL_I2C_Master_Transmit(gyro.hi2c, gyro.write, gyro.data, 2, 20)) != HAL_OK)
 		HAL_Delay(1);
 
-	while ( (status = HAL_I2C_Master_Receive(&hi2c1, gyroRead, gyroData, 1, 20)) != HAL_OK)
+	while ( (status = HAL_I2C_Master_Receive(gyro.hi2c, gyro.read, gyro.data, 1, 20)) != HAL_OK)
 		HAL_Delay(1);
 
-	if (gyroData[0] != 0xF)
+	if (gyro.data[0] != 0xF)
 		return HAL_ERROR;
 
-	return HAL_OK;
+	return status;
 }
 
 void GyroRead() {
-	MyBlink();
+	HAL_StatusTypeDef status = HAL_OK;
 
-	gyroData[0] = 0x28;
+	gyro.data[0] = OUT_X_H;
 
-	while ( (status = HAL_I2C_Master_Transmit(&hi2c1, gyroWrite, gyroData, 1, 20)) != HAL_OK)
+	while ( (status = HAL_I2C_Master_Transmit(gyro.hi2c, gyro.write, gyro.data, 1, 20)) != HAL_OK)
 		HAL_Delay(1);
 
-	while ( (status = HAL_I2C_Master_Receive(&hi2c1, gyroRead, gyroData, 1, 20)) != HAL_OK)
+	while ( (status = HAL_I2C_Master_Receive(gyro.hi2c, gyro.read, gyro.data, 1, 20)) != HAL_OK)
 		HAL_Delay(1);
 
 }

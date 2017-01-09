@@ -3,6 +3,16 @@
 
 #include "stm32f4xx_hal.h"
 
+#define WRITE_ADDR	0xD6
+#define READ_ADDR   0xD7
+
+typedef struct _Gyro_t {
+	I2C_HandleTypeDef *hi2c;
+	uint16_t write;
+	uint16_t read;
+	uint8_t data[16];
+} Gyro_t;
+
 enum GyroRegisters{
 	WHO_AM_I = 0x0F,
 	CTRL_REG1 = 0x20,
@@ -31,5 +41,8 @@ enum GyroRegisters{
 	INT1_TSH_ZL,
 	INT1_DURATION
 };
+
+extern uint8_t GyroInit(I2C_HandleTypeDef *);
+extern void GyroRead();
 
 #endif // GYRO_L3GD20_H
