@@ -16,6 +16,8 @@ typedef struct _Accel_t {
 	uint8_t data[16];
 } Accel_t;
 
+extern uint8_t AccelInit(I2C_HandleTypeDef *);
+extern void AccelRead();
 
 
 #endif // ACCEL_LSM303DLHC_H
