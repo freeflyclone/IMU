@@ -86,9 +86,10 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  GyroInit();
   while (1)
   {
-	  GyroInit();
+	  GyroRead();
   }
   /* USER CODE END 3 */
 
