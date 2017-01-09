@@ -3,9 +3,12 @@
 
 #include "stm32f4xx_hal.h"
 
+// as configured on the Adafruit 10 DOF IMU board #1604
 #define WRITE_ADDR	0xD6
 #define READ_ADDR   0xD7
 
+// this will be fleshed out to support DMA and/or Interrupt driven transfer
+// from the sensor module.
 typedef struct _Gyro_t {
 	I2C_HandleTypeDef *hi2c;
 	uint16_t write;
