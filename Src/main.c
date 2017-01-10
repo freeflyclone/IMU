@@ -58,11 +58,12 @@ static void MX_I2C1_Init(void);
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
-
+extern void initialise_monitor_handles(void);
 /* USER CODE END 0 */
 
 int main(void)
 {
+  initialise_monitor_handles();
 
   /* USER CODE BEGIN 1 */
 
@@ -87,8 +88,9 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   ImuInit(&hi2c1);
-  while (1)
-  {
+  printf("ImuInit() complete\n");
+
+  while (1) {
 	  ImuLoop();
   }
   /* USER CODE END 3 */
