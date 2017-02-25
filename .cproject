@@ -99,8 +99,8 @@
 	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
 	<storageModule moduleId="refreshScope" versionNumber="2">
-		<configuration artifactName="IMU" configurationName="Debug">
-			<resource resourceType="PROJECT" workspacePath="IMU"/>
+		<configuration configurationName="Debug">
+			<resource resourceType="PROJECT" workspacePath="/IMU"/>
 		</configuration>
 	</storageModule>
 </cproject>
